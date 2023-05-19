@@ -1,5 +1,5 @@
-import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import json
 import os
 import openai
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -30,8 +30,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
 
 # print the chat completion
-        print(chat_completion.choices[0].message.content)
-        # self.wfile.write(json.dumps(response).encode())
+        response = chat_completion.choices[0].message.content
+        self.wfile.write(json.dumps(response).encode())
 
     def _set_headers(self, status):
         # Notice this Docstring also includes information about the arguments passed to the function
